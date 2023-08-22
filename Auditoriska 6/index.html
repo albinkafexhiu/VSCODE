@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            margin-bottom: 10px;
+        }
+        label{
+            display: inline-block;
+            width: 100px;
+            /* margin-right: 6%; */
+        }
+    </style>
+    <script>
+        function sure(){
+            var name = document.getElementById('name')
+            var surname = document.getElementById('surname')
+            var email = document.getElementById('email')
+            var age = document.getElementById('age')
+
+            if(name.value === "" || surname.value === "" || email.value === ""){
+                alert("Fill all the blanks")
+            }else{
+            var p = confirm("Gospodine " + name.value + " " +surname.value +" dali ste sigurni?")
+            if(p===true){
+                document.getElementById('message').value = "Your information is succesfully sent"
+            }else{
+                alert("Next time fill in the blanks:)")
+            }
+        }
+        }
+    </script>
+</head>
+<body>
+    <div><label>Name</label><input id="name" type="text"></div>
+    <div><label>Surname</label><input id="surname" type="text"></div>
+    <div><label>E-Mail</label><input id="email" type="email"></div>
+    <div><label>Age</label>
+    <select name="" id="age">
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+    </select>
+</div>
+<div>
+    <button onclick="sure()">Send</button>
+</div>
+<input type="text" disabled="disabled" id="message">
+</body>
+</html>

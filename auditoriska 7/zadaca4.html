@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        var arr = [];
+        var x = 0;
+        function addInArray(){
+            var element = document.getElementById("element").value;
+            arr.push(element);
+            alert("Element: " + arr[x] + " Added at index " + x);
+            x++; 
+            console.log(arr);
+        }
+        function displayFromArray(){
+            var printo = document.getElementById('printo')
+            for(var i = 0 ; i < arr.length ; i++){
+                printo.innerHTML += "Element " + i + " = " + arr[i] + "<br/>"                
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <div>
+        <input type="text" id="element">
+        <button onclick="addInArray()">ADD</button>
+        <button onclick="displayFromArray()">Display</button>
+    </div>
+    <div id = "printo">
+
+    </div>
+
+
+</body>
+</html>

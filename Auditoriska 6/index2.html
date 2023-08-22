@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{
+            font-size: 35px;
+        }
+        div{
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        label{
+            display: inline-block;
+            width: 100px;
+            /* margin-right: 6%; */
+        }
+        table, td, th {
+            margin: 3px;
+            padding: 3px;
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+
+    </style>
+    <script>
+        function sure(){
+            var author = document.getElementById('author').value
+            var project = document.getElementById('project').value
+            var cost = document.getElementById('cost').value
+            
+
+            if(author === "" || project === "" || cost === ""){
+                alert("Fill all the blanks")
+            }else{
+                var tabela = document.getElementById('tablaa')
+                tabela.innerHTML += "<tr><td>"+author+"</td><td>"+project+"</td><td class='cena'>"+cost+"</td><td><button onclick='remove(this)'>Remove</button></td></tr>"
+                update_total()
+
+                
+            }
+        }
+        function remove(button){
+            var row = button.parentNode.parentNode
+            row.parentNode.removeChild(row)
+            update_total()
+        }
+        function update_total(){
+            var tablerow = document.getElementsByClassName('cena')
+            var sum = 0;
+            for(var i = 0 ; i < tablerow.length ; i++){
+                sum += parseInt(tablerow[i].innerHTML)
+            }
+            document.getElementById('total_sum').innerHTML = sum
+        }
+    </script>
+</head>
+<body>
+    <h1>Projects Details</h1>
+    <div><label>Author</label><input id="author" type="text"></div>
+    <div><label>Project</label><input id="project" type="text"></div>
+    <div><label>Cost</label><input id="cost" type="number"></div>
+    
+<div>
+    <button onclick="sure()">Send</button>
+</div>
+<div>
+    <h1>Project List</h1>
+    <table id="tablaa">
+        <thead><th>Author </th><th> Project </th><th> Cost </th></thead>
+    
+    </table>
+</div>
+<div>
+    <p>Total sum <span id="total_sum"></span></p>
+</div>
+</body>
+</html>

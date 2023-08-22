@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        label{
+            font-size: 20px;
+            display: inline-block;
+            width: 100px;
+        }
+        h1{
+            font-size: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        #maindiv{
+            margin-left: 20%;
+            margin-right: 20%;
+        }
+        div{
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            
+        }
+        #buttonii{
+            width: 180px;
+            height: 50px;
+        }
+        button{
+            margin-right: 4px;
+        }
+        
+        .horizontal-div {
+        display: inline-block;
+        margin-right: 30px; /* Optional margin between divs */
+        padding: 10px;
+        }
+
+        .disabled-button {
+        opacity: 0.5;
+        pointer-events: none;
+        }
+        .red-bg {
+            background-color: rgb(73, 47, 47);
+        }
+
+        .green-bg {
+            background-color: green;
+        }
+    </style>
+
+    <script>
+        
+        function generate(){
+            var name = document.getElementById('name').value
+            var surname = document.getElementById('surname').value
+            var plate = document.getElementById('table').value
+            var age = document.getElementById('age').value
+            var accidents = document.querySelector('input[name="accidents"]:checked')
+            
+            if(name === "" || surname === "" || plate === "" || age === "" || !accidents){
+                alert("Please fill all the blanks")
+            }else{
+                if(check_plate(plate)){
+
+                var plateDigits = plate.substring(3,7);
+            
+                var flag = 1;
+                for(var i = 1 ; i < plateDigits.length ; i++){
+                    if(plateDigits[i-1] != plateDigits[i]){
+                        flag = 0;
+                        break;
+                    }
+                }
+                var total_SUM = 3000;
+                if(flag){
+                    total_SUM +=1000;
+                    if(accidents.value == "yes"){
+                        total_SUM+=500;
+                    }
+                }else{
+                    if(accidents.value == "yes"){
+                        total_SUM+=500;
+                    }
+                }
+
+                    var backgroundColor = "green-bg"
+                if(age>30){
+                    backgroundColor = "red-bg"
+                }
+
+                var lastdiv = document.getElementById('lastDIV')
+                var fullName = name + " " + surname;
+                var newdiv = document.createElement('div')
+                newdiv.className = 'horizontal-div'
+                newdiv.innerHTML +=
+                 '<p>' + fullName + '<br/><br/>'+ plate +  '<br/><br/>' + "Accidents: " + accidents.value + '<br/><br/>' 
+                    + "Age of Vehicle: " + age + '<br/><br/>' + "For paying: " + total_SUM + '<br/><br/>' + '<button class="pay-button" onClick=pay(this)>Pay</button>' + '<button class="delete-button" onClick=deletee(this)>Delete</button>' + '<br/>  </p>';               
+                    newdiv.classList.add(backgroundColor)
+                    lastdiv.appendChild(newdiv)
+
+            }
+        }
+
+        }
+
+        
+        function check_plate(plate){
+            
+
+            var carPlatesPattern1 = /^[A-Z]{2}-\d{4}-[A-Z]{2}$/
+            var carPlatesPattern = /^[A-Z]{2}-\d{4}-[A-Z]{2}$/;
+            console.log(plate)
+            console.log(carPlatesPattern)
+            if (!carPlatesPattern.test(plate)) {
+                alert("Please enter car plates in the format AB-1234-QW.");
+                return false;
+            }
+            return true;
+        }
+
+        function deletee(button){
+            var divToRemove = button.parentElement.parentElement
+            divToRemove.remove();
+        }
+        function pay(button) {
+            var payButton = button;
+            var deleteButton = payButton.parentElement.querySelector('.delete-button');
+
+            payButton.classList.add('disabled-button');
+            deleteButton.classList.add('disabled-button');
+        }       
+    </script>
+</head>
+<body>
+<div id = "maindiv">   
+    <div>
+            <h1>Osiguruvanje na vozila</h1>
+    </div>
+    <div>
+        <label for="">Name</label>
+        <input type="text" id="name">
+    </div>
+    <div>
+        <label for="">Surname</label>
+        <input type="text"id="surname">
+    </div>
+    <div>
+        <label for="">Table Plate</label>
+        <input type="text"id="table">
+    </div>
+    <div>
+        <label for="">Age of Car</label>
+        <input type="number"id="age">
+    </div>
+    <div>
+        <label for="accidents">Have you had any accidents?</label>
+        <input type="radio" id="accidents_yes" name="accidents" value="yes">
+        <label for="accidents_yes">Yes</label>
+        <input type="radio" id="accidents_no" name="accidents" value="no">
+        <label for="accidents_no">No</label>
+    </div>
+    <div>
+        <button id="buttonii" onclick="generate()">Generate</button>
+    </div>
+
+    <div id="lastDIV">
+
+    </div>
+</div>
+</body>
+</html>
